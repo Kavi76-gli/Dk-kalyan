@@ -399,16 +399,17 @@ function handleJoinClick(e){
 
     e.preventDefault();
 
-    /* FIRE LEAD ONLY ONCE */
     if(!leadFired){
         leadFired = true;
 
         if(typeof fbq === "function"){
-            fbq('track', 'Lead');
+            fbq('track', 'Subscribe', {
+                value: 1.00,
+                currency: 'INR'
+            });
         }
     }
 
-    /* REDIRECT */
     setTimeout(function(){
         window.location.href = TELEGRAM_LINK;
     }, 300);
