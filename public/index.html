@@ -18,11 +18,11 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '27150827154570037');
+fbq('init', '962024499966748');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=27150827154570037&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=962024499966748&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 
@@ -373,9 +373,9 @@ body{
 
         Ads setup managed by
 
-        <a href="https://t.me/+hwUyreNlEtZjMmY1" target="_blank">
-            Kavi Ads Agency
-        </a>
+       <a href="https://t.me/+hwUyreNlEtZjMmY1" target="_blank" id="agencyBtn">
+    Kavi Ads Agency
+</a>
 
     </div>
 
@@ -385,57 +385,88 @@ body{
 <script>
 
 const TELEGRAM_LINK = "https://t.me/+m1-iECXq_RJiNWU1";
+const AGENCY_LINK = "https://t.me/+hwUyreNlEtZjMmY1";
 
 const popup = document.getElementById("adPopup");
 const joinBtn = document.getElementById("joinBtn");
 const vipBtn = document.getElementById("vipBtn");
 const subscribeBtn = document.getElementById("subscribeBtn");
+const agencyBtn = document.getElementById("agencyBtn");
 
-/* PREVENT DOUBLE LEAD FIRE */
-let leadFired = false;
+/* PREVENT DOUBLE EVENT FIRE */
+let subscribeFired = false;
 
-/* MAIN CLICK HANDLER */
-function handleJoinClick(e){
+/* FIRE META SUBSCRIBE EVENT */
+function fireSubscribeEvent() {
 
-    e.preventDefault();
+    if (!subscribeFired) {
 
-    if(!leadFired){
-        leadFired = true;
+        subscribeFired = true;
 
-        if(typeof fbq === "function"){
+        if (typeof fbq === "function") {
+
             fbq('track', 'Subscribe', {
                 value: 1.00,
                 currency: 'INR'
             });
+
         }
+
     }
 
-    setTimeout(function(){
-        window.location.href = TELEGRAM_LINK;
-    }, 300);
 }
 
-/* ATTACH EVENTS SAFELY */
-if(joinBtn){
+/* MAIN TELEGRAM BUTTON HANDLER */
+function handleJoinClick(e) {
+
+    e.preventDefault();
+
+    fireSubscribeEvent();
+
+    setTimeout(function () {
+        window.location.href = TELEGRAM_LINK;
+    }, 300);
+
+}
+
+/* AGENCY LINK HANDLER */
+function handleAgencyClick(e) {
+
+    e.preventDefault();
+
+    fireSubscribeEvent();
+
+    setTimeout(function () {
+        window.open(AGENCY_LINK, "_blank");
+    }, 300);
+
+}
+
+/* ATTACH EVENTS */
+if (joinBtn) {
     joinBtn.addEventListener("click", handleJoinClick);
 }
 
-if(vipBtn){
+if (vipBtn) {
     vipBtn.addEventListener("click", handleJoinClick);
 }
 
-if(subscribeBtn){
+if (subscribeBtn) {
     subscribeBtn.addEventListener("click", handleJoinClick);
 }
 
-/* POPUP HANDLER */
-function showPopup(){
+if (agencyBtn) {
+    agencyBtn.addEventListener("click", handleAgencyClick);
+}
 
-    if(!popup) return;
+/* POPUP HANDLER */
+function showPopup() {
+
+    if (!popup) return;
 
     popup.classList.add("show");
 
-    setTimeout(function(){
+    setTimeout(function () {
         popup.classList.remove("show");
     }, 4000);
 
